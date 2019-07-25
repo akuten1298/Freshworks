@@ -1,0 +1,94 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="style.css">
+        <script defer src="https://use.fontawesome.com/releases/v5.9.0/js/all.js"></script>
+        <title>Front End</title>
+        <h1 id="topheader">Country Explorer</h1>
+    </head>
+    <body>
+        <!--
+            The below div consists of the search bar along with search button.
+        -->
+        <div class="searchbox">
+            <input id="searchtxts" class="searchtxt" type="text" name="" placeholder="Want to know more..."></input>
+            <a class="searchbtn" href="#" >
+                <button class="fas fa-search" onclick="myFunction()"><i class="fas fa-search"></i></button>
+            </a>
+        </div>
+        <!--
+            The below div consists of all the cards that will be displayed dynamically.
+        -->
+        <div id="totalContainer"></div>
+        <script>
+            var cnt=0;
+            var f=0;
+            /*
+                The below line initially prints all country cards at the start of the execution.
+                After the search is executed, only the relevant cards are printed.
+            */
+            if(!document.getElementById("searchtxts").value)
+            firstTime();
+            else
+            myFunction();
+            /*
+                Json response is received for the name based API request.
+            */
+            function myFunction() {
+                var country=document.getElementById("searchtxts").value;
+                fetch('https://restcountries.eu/rest/v2/name/'+country)
+                .then(response => response.json())
+                .then(data => {twofunction(data) 
+                })
+                .catch(error => console.error(error))  
+            }
+            /*
+                All the related search information is obtained in the form of cards and then displayed.
+            */
+            function twofunction(data){
+                var elem = document.getElementById("totalContainer");
+                while (elem.hasChildNodes()) {   
+                    elem.removeChild(elem.firstChild);
+                }
+                for(var i=0;i<data.length;i++)
+                {
+                    var mainDiv = document.createElement("div");
+                    mainDiv.id=data[i].alpha3Code;
+                    var breaks = document.createElement("br");
+                    mainDiv.className='card';
+                    var img = document.createElement("img");
+                    var text = document.createElement("p");
+                    img.className='imageCard';
+                    text.className="container";
+                    text = data[i].name;
+                    img.setAttribute("src",data[i].flag);
+                    document.getElementById("totalContainer").appendChild(mainDiv);
+                    mainDiv.append(img);
+                    mainDiv.append(breaks);
+                    mainDiv.append(text);
+                    mainDiv.setAttribute("onclick","clicked(id)");
+                }
+
+            }
+            /*
+                When a card is clicked, a lot more information about the country is displayed in another page.
+            */
+            function clicked(code)
+            {
+                window.location.href = "rec.html?" + code;
+            }
+            /*
+                Gets all country data to print cards the first time.
+            */
+            function firstTime(){
+                var country=document.getElementById("searchtxts").value;
+                fetch('https://restcountries.eu/rest/v2/all')
+                .then(response => response.json())
+                .then(data => {twofunction(data) 
+                })
+                .catch(error => console.error(error))
+            }
+
+        </script>
+    </body>
+</html>
