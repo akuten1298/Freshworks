@@ -1,6 +1,9 @@
 # Freshworks FrontEnd 
 
-There are two html files aku.html (which is the landing page) and rec.html (this page displays country info). 
+Good Afternoon,
+This is Aakash Mahalingam(120003001) CSE, Ex-Freshworks Intern :-)
+
+There are two html files aku.html (landing page) and rec.html (second page). 
 These two html files are supported by style sheets style.css and style2.css respectively.
 
 Landing Page:
@@ -20,8 +23,6 @@ all interesting details that are returned by the API. You are free to design thi
 see fit.
 4. The details page should have a link to go back to the previous page, where the search
 results were displayed.
-
-
 
 
 The complete functionality and workflow is commmented in the html files.
